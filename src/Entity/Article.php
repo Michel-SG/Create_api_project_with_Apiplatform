@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-//use App\Entity\Traits\Timestampable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert; 
@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
- * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Article
 {
-    //use Timestampable;
+    use Timestampable;
 
     /**
      * @ORM\Id
