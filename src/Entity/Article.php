@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestamptable;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert; 
+
 //use Symfony\Component\Serializer\Annotation\Groups;
 
 
@@ -15,6 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Article
 {
+    use Timestamptable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -33,16 +37,6 @@ class Article
      *@Assert\NotBlank
      */
     private $content;
-
-    /**
-     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
-     */
-    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -73,39 +67,5 @@ class Article
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updateTimestamps(): void
-    {
-        if($this->getCreatedAt() === null ){
-        $this->setCreatedAt(new \DateTimeImmutable);
-        }
-       $this->setUpdatedAt(new \DateTimeImmutable);
-    }
+  
 }
