@@ -2,7 +2,7 @@
 
 namespace App\Entity\Traits;
 
-trait Timestamptable
+trait Timestampable
 {
    
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Timestamptable;
+//use App\Entity\Traits\Timestampable;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert; 
@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
- * @ORM\HasLifecycleCallbacks()
+ * 
  */
 class Article
 {
-    use Timestamptable;
+    //use Timestampable;
 
     /**
      * @ORM\Id
@@ -37,6 +37,13 @@ class Article
      *@Assert\NotBlank
      */
     private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
 
     public function getId(): ?int
     {
@@ -66,6 +73,22 @@ class Article
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+   
+
+   
 
   
 }
